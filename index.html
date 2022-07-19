@@ -45,8 +45,9 @@
 
 </head>
 <body>
-<center><H1><u>LIVE YOUR BEST LIFE BINGO</u></H1></center>
-
+<center><H1><u>LIVE YOUR BEST LIFE BINGO</u></H1>
+<p id="subtitleText" style="display: none;"></p>
+</center>
 
 
 
@@ -54,16 +55,20 @@
 
 <div id="instructions">		
 <h2>Put in your words here... </h2>
-<p>Make sure the FREE tile is the first one! There should be 25 in total.</p>
+<p>Make sure the FREE tile is the first one!</p>
+<label for="subtitle">Subtitle: </label>
+  <input name="subtitleInput" id="subtitleInput" type="text" />
+  
+<br>  
+<br>
 <textarea name="Text1" id="wordList" cols="50" rows="25"></textarea>
+
 <p>
 <button onclick="makeButton();">Make Grid!</button>
 </p>
 
-<br>
 
 </div>
-<br>
 <p><b>Name:</b></p>
 <p><b>RULES:</b></p>
 <p>Complete at least 5 wellbeing activities in a straight line to achieve a BINGO!</p>
@@ -85,11 +90,17 @@ function makeButton() {
 
 	instructions.style.display = "none";
 	containerTile.style.display = "grid";
+	subtitleText.style.display = "block";
+	subtitleText.innerHTML = subtitleInput.value
 
 	writtenWords = wordList.value.split('\n');
 	freeTile.innerHTML = writtenWords[0]
 	writtenWords.shift()
 	writtenWords = writtenWords.sort((a, b) => 0.5 - Math.random());
+	
+	while (writtenWords.length < 24) {
+		writtenWords = writtenWords.concat(writtenWords);
+	}
 
 	for (var i=0; i < 24; i++) {
 		var newTile = document.createElement("div");
